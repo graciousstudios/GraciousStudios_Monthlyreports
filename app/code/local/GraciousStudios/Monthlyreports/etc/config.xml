@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <GraciousStudios_Monthlyreports>
+            <version>0.1.0</version>
+        </GraciousStudios_Monthlyreports>
+    </modules>
+    <global>
+        <helpers>
+            <monthlyreports>
+                <class>GraciousStudios_Monthlyreports_Helper</class>
+            </monthlyreports>
+        </helpers>
+    </global>
+</config> 
