@@ -20,7 +20,6 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
 
         $this->invoices();
         $this->refunds();
-        die;
     }
 
     /**
