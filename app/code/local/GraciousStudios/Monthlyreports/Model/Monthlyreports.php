@@ -144,8 +144,11 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
         $emails = Mage::getStoreConfig('monthlyreports/monthlyreports/email', Mage::app()->getStore());
         $recipients = explode(PHP_EOL, $emails);
         if(!empty($recipients)) {
-            $subject = 'Monthly Reports Export : ' . gethostname() . ' : ' . date('YmdHis');
-            $mailBody = '<strong>' . $subject . '</strong><br/><br/>';
+            $subject = 'Monthly Reports Export : ' . gethostname() . ' : ' . $this->startDate . ' - ' . $this->endDate;
+            $mailBody = '
+            <strong>From:</strong><br/>' . $this->startDate . '
+            <strong>To:</strong><br/>' . $this->endDate . '
+            ';
             $mail->setBodyHtml($mailBody)
                 ->addTo($recipients)
                 ->setSubject($subject)
