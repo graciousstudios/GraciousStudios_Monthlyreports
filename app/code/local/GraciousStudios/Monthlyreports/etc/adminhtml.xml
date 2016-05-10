@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <monthlyreports translate="title" module="monthlyreports">
+                                        <title>Monthly Reports Section Section</title>
+                                        <sort_order>0</sort_order>
+                                    </monthlyreports>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

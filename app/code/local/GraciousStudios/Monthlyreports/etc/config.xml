@@ -11,5 +11,64 @@
                 <class>GraciousStudios_Monthlyreports_Helper</class>
             </monthlyreports>
         </helpers>
+        <models>
+            <monthlyreports>
+                <class>GraciousStudios_Monthlyreports_Model</class>
+            </monthlyreports>
+        </models>
+        <adminhtml>
+            <menu>
+                <monthlyreports module="monthlyreports">
+                    <title>Monthly Reports</title>
+                    <sort_order>100</sort_order>
+                    <children>
+                        <monthlyreportsbackend module="monthlyreports">
+                            <title>Monthly Reports</title>
+                            <sort_order>0</sort_order>
+                            <action>admin_monthlyreports/adminhtml_monthlyreportsbackend</action>
+                        </monthlyreportsbackend>
+                    </children>
+                </monthlyreports>
+            </menu>
+            <acl>
+                <resources>
+                    <all>
+                        <title>Allow Everything</title>
+                    </all>
+                    <admin>
+                        <children>
+                            <monthlyreports translate="title" module="monthlyreports">
+                                <title>Monthly Reports</title>
+                                <sort_order>1000</sort_order>
+                                <children>
+                                    <monthlyreportsbackend translate="title">
+                                        <title>Monthly Reports</title>
+                                    </monthlyreportsbackend>
+                                </children>
+                            </monthlyreports>
+                        </children>
+                    </admin>
+                </resources>
+            </acl>
+            <layout>
+                <updates>
+                    <monthlyreports>
+                        <file>monthlyreports.xml</file>
+                    </monthlyreports>
+                </updates>
+            </layout>
+        </adminhtml>
     </global>
-</config> 
+    <crontab>
+        <jobs>
+            <monthlyreports_generate>
+                <schedule>
+                    <cron_expr>0 0 2 * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>monthlyreports/monthlyreports::generate</model>
+                </run>
+            </monthlyreports_generate>
+        </jobs>
+    </crontab>
+</config>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <monthlyreports translate="label" module="monthlyreports">
+            <label>Monthly Reports</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <monthlyreports translate="label">
+                    <label>Monthly Reports</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <email translate="label">
+                            <label>Email addresses</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter all emailadresses you want the report sent to</comment>
+                        </email>
+                        <!--<invoices translate="label">-->
+                            <!--<label>Send invoice reports</label>-->
+                            <!--<frontend_type>checkbox</frontend_type>-->
+                            <!--<sort_order>0</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>1</show_in_website>-->
+                            <!--<show_in_store>1</show_in_store>-->
+                        <!--</invoices>-->
+                        <!--<refunds translate="label">-->
+                            <!--<label>Send refund reports</label>-->
+                            <!--<frontend_type>checkbox</frontend_type>-->
+                            <!--<sort_order>0</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>1</show_in_website>-->
+                            <!--<show_in_store>1</show_in_store>-->
+                        <!--</refunds>-->
+                    </fields>
+                </monthlyreports>
+            </groups>
+        </monthlyreports>
+    </sections>
+</config>
