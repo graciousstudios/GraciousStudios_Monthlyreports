@@ -7,6 +7,7 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
 
     protected $startDate;
     protected $endDate;
+    protected $files;
 
     /**
      * Generate reports and send email
@@ -20,6 +21,7 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
 
         $this->invoices();
         $this->refunds();
+        $this->sendEmail();
     }
 
     /**
@@ -117,13 +119,16 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
             // Unlock and close the stream
             $io->streamUnlock();
             $io->streamClose();
+
+            $this->files[] = [
+                $fileName => $exportFilename
+            ];
+
             // Send it in an email
-            $this->mailCsv($exportFilename, $fileName, $itemCount);
+//            $this->mailCsv($exportFilename, $fileName, $itemCount);
         }else{
             Mage::log('No ' . $type . ' found between ' . $this->startDate . ' and ' . $this->endDate, null, 'monthlyreports.log');
         }
-
-
     }
 
 
@@ -134,25 +139,30 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
      * @param string $filename
      * @param int $items
      */
-    protected function mailCsv($file = null, $filename = 'export.csv', $items = 0) {
+    protected function sendEmail() {
         $mail = new Zend_Mail('utf-8');
         $emails = Mage::getStoreConfig('monthlyreports/monthlyreports/email', Mage::app()->getStore());
         $recipients = explode(PHP_EOL, $emails);
         if(!empty($recipients)) {
-            $subject = 'Monthly Reports Export';
+            $subject = 'Monthly Reports Export : ' . gethostname() . ' : ' . date('YmdHis');
             $mailBody = '<strong>' . $subject . '</strong><br/><br/>';
-            $mailBody .= '<strong>Items:</strong> ' . $items . '<br/>';
             $mail->setBodyHtml($mailBody)
                 ->addTo($recipients)
                 ->setSubject($subject)
                 ->setFrom(Mage::getStoreConfig('trans_email/ident_general/email'), 'Koopjedeal.nl')
             ;
+
             // Attach file if we have one
-            if(!is_null($file)) {
-                Mage::log('Found file, attaching = ' . $file, null, 'monthlyreports.log');
-                $attachment = file_get_contents($file);
-                $mail->createAttachment($attachment, Zend_Mime::TYPE_OCTETSTREAM, Zend_Mime::DISPOSITION_ATTACHMENT, Zend_Mime::ENCODING_BASE64, $filename);
+            foreach($this->files as $aFile)  {
+                foreach($aFile as $fileName=>$exportFilename)   {
+                    if(!is_null($exportFilename)) {
+                        Mage::log('Found file, attaching = ' . $exportFilename, null, 'monthlyreports.log');
+                        $attachment = file_get_contents($exportFilename);
+                        $mail->createAttachment($attachment, Zend_Mime::TYPE_OCTETSTREAM, Zend_Mime::DISPOSITION_ATTACHMENT, Zend_Mime::ENCODING_BASE64, $fileName);
+                    }
+                }
             }
+
             try {
                 $mail->send();
             } catch(Exception $e) {
