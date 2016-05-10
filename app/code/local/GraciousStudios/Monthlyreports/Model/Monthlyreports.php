@@ -146,8 +146,8 @@ class GraciousStudios_Monthlyreports_Model_Monthlyreports extends Mage_Core_Mode
         if(!empty($recipients)) {
             $subject = 'Monthly Reports Export : ' . gethostname() . ' : ' . $this->startDate . ' - ' . $this->endDate;
             $mailBody = '
-            <strong>From:</strong><br/>' . $this->startDate . '
-            <strong>To:</strong><br/>' . $this->endDate . '
+                <strong>From:</strong><br/>' . $this->startDate . '<br/>
+                <strong>To:</strong><br/>' . $this->endDate . '<br/>
             ';
             $mail->setBodyHtml($mailBody)
                 ->addTo($recipients)
